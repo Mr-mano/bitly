@@ -1,0 +1,111 @@
+#feedly-mini{
+    display: none;
+}
+* {
+    box-sizing: border-box;
+}
+body, html{
+    margin: 0;
+    padding: 0;
+    font-size: 0.900rem;
+    font-family: roboto, Arial, Helvetica, sans-serif;
+}
+input[type=url] {
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.4);
+    padding: 17px 30px;
+    border: none;
+    width: 50%;
+    font-size: 1.3em;
+}
+input[type=submit]{
+    cursor: pointer;
+    padding: 17px 30px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.4);
+    background: #EE6123;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+#hello{
+    background-image: url(pictures/hello.jpg);
+    background-size: cover;
+    height: 500px;
+}
+#hello form{
+    text-align: center;
+    margin-top: 30px;
+}
+#result{
+    color: white;
+    padding: 30px;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 20px;
+}
+.center{
+    text-align: center;
+}
+
+#logo{
+    height: 50px;
+}
+header{
+    padding: 30px;
+}
+.container{
+    width: 1100px;
+    margin: 0 auto;
+}
+h1{
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2.9em;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+h2{
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
+.formulaire{
+    margin: 0 auto;
+}
+#brands{
+    background: #EFF7FC;
+    padding: 30px;
+    text-align: center;
+}
+h3{
+    margin: 0;
+    color: #EE6123;
+    text-transform: uppercase;
+    padding-bottom: 30px;
+}
+.picture{
+    height: 35px;
+    margin: 15px;
+}
+footer{
+    text-align: center;
+    height: 100px;
+}
+.logo_footer{
+    height: 25px;
+    margin: 20px auto 5px auto;
+}
+p{
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    color: #EE6123;
+    font-weight: bold;
+    font-size: 1rem;
+}
