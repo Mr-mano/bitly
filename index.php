@@ -1,16 +1,42 @@
 <?php
+
+if(isset($_GET['q'])){
+    //variable
+    $shortcup = htmlspecialchars($_GET['q']);
+
+    //vérifier si c'est un shortcut
+    $bdd = new PDO('mysql:host=localhost;dbname=bitly;charset=utf8', 'root', 'root');
+    $req = $bdd->prepare('SELECT COUNT(*) AS x FROM links WHERE shortcut = ?');
+    $req->execute(array($shortcup));
+
+    while($result = $req->fetch()){
+
+        if($result['x'] != 1){
+            header('location: ../bitly/?error=true&message=Adresse url non connue');
+            exit();
+        }
+    }
+    //redirection
+    $req = $bdd->prepare('SELECT * FROM links WHERE shortcut = ?');
+    $req->execute(array($shortcup));
+
+    while($result = $req->fetch()){
+        header('location: '.$result['url']);
+        exit();
+    }
+}
 //connection BD
 try {
-$bdd = new PDO('mysql:host=localhost;dbname=bitly;charset=utf8', 'root', 'root');
-} catch (Exception $e) {
-    die('Erreur :' . $e->getMessage());
-}
-
+    $bdd = new PDO('mysql:host=localhost;dbname=bitly;charset=utf8', 'root', 'root');
+    } catch (Exception $e) {
+        die('Erreur :' . $e->getMessage());
+    }
 
 if (isset($_POST['url'])) {
     //création de la variable 
     $url = $_POST['url'];
     //vérifier si l'url valide
+    
     if (!filter_var($url, FILTER_VALIDATE_URL)) {
         // n'est pas bonne
         header('location: ../bitly/?error=true&message=Adresse url non valide');
@@ -37,7 +63,7 @@ if (isset($_POST['url'])) {
     //envoie en base de données
     $req = $bdd->prepare('INSERT INTO links(url, shortcut) VALUES(?, ?)')
     or die (print_r($bdd->errorInfo()));
-    $req->execute(array($url, $shortcut));
+    $req->execute(array($url, $shortcup));
     header('location: ../bitly/?short=' . $shortcup);
     exit();
 
@@ -67,6 +93,7 @@ if (isset($_POST['url'])) {
             </header>
             <h1>Une url longue ? Raccourcissez-là</h1>
             <h2>largement meilleur et plus court que les autres.</h2>
+            <!--FORM-->
             <form method="post" action="index.php">
                 <input type="url" name="url" placeholder="Placez votre url ici">
                 <input type="submit" value="Raccourcir">
@@ -81,7 +108,7 @@ if (isset($_POST['url'])) {
             <?php } else if (isset($_GET['short'])) { ?>
                 <div class="center">
                     <div id="result">
-                        <b>URL RACCOURCIE : </b>http://localhost/q=<?php echo htmlspecialchars($_GET['short']); ?>
+                        <b>URL RACCOURCIE : </b>http://localhost/?q=<?php echo htmlspecialchars($_GET['short']); ?>
                     </div>
                 </div>
             <?php } ?>
