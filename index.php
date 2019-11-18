@@ -2,12 +2,12 @@
 
 if(isset($_GET['q'])){
     //variable
-    $shortcup = htmlspecialchars($_GET['q']);
+    $shortcut = htmlspecialchars($_GET['q']);
 
     //vérifier si c'est un shortcut
     $bdd = new PDO('mysql:host=localhost;dbname=bitly;charset=utf8', 'root', 'root');
     $req = $bdd->prepare('SELECT COUNT(*) AS x FROM links WHERE shortcut = ?');
-    $req->execute(array($shortcup));
+    $req->execute(array($shortcut));
 
     while($result = $req->fetch()){
 
@@ -18,7 +18,7 @@ if(isset($_GET['q'])){
     }
     //redirection
     $req = $bdd->prepare('SELECT * FROM links WHERE shortcut = ?');
-    $req->execute(array($shortcup));
+    $req->execute(array($shortcut));
 
     while($result = $req->fetch()){
         header('location: '.$result['url']);
@@ -47,7 +47,7 @@ if (isset($_POST['url'])) {
     
 
     //variable raccourcir l'url
-    $shortcup = crypt($url, rand());
+    $shortcut = crypt($url, rand());
     
 
     //vérifier si l'url à déjà était proposée
@@ -63,8 +63,8 @@ if (isset($_POST['url'])) {
     //envoie en base de données
     $req = $bdd->prepare('INSERT INTO links(url, shortcut) VALUES(?, ?)')
     or die (print_r($bdd->errorInfo()));
-    $req->execute(array($url, $shortcup));
-    header('location: ../bitly/?short=' . $shortcup);
+    $req->execute(array($url, $shortcut));
+    header('location: ../bitly/?short=' . $shortcut);
     exit();
 
 }
